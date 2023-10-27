@@ -1,18 +1,40 @@
 // Für die States
 let gameState = 0;
 let gameStartTime = 0;
-let gameDuration = 5;
+let gameDuration = 50;
 let fontSize = 40;
 let hasGameStarted = false;
-let timeElapsed = 0;
 
 // Für den Playerbalken
 let player;
+let barSound;
+
+// Für die Klötze
+let bricks = [];
+let distance;
+
+// Für den Ball
+let gameoverSound;
+
+
+function preload() {
+  soundFormats("wav");
+  barSound = loadSound("sound/bar.wav");
+  gameoverSound = loadSound("sound/gameover.wav");
+}
 
 function setup() {
   createCanvas(600, 700);
 
   player = new PlayerBar(100);
+  ball = new Ball();
+
+  for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 5; j++) {
+        bricks.push(new Brick(i * 70 + 10, j * 40 + 10));
+      }
+
+  }
 }
 
 function draw() {
@@ -24,7 +46,6 @@ function draw() {
     finishGame();
   }
 
-  drawTime();
 }
 
 function startGame() {
@@ -35,10 +56,21 @@ function startGame() {
 }
 
 function playGame() {
-  background(255, 255, 0);
+  background(0, 80, 255);
   textAlign(CENTER);
   player.show();
   player.move();
+
+  ball.show();
+  ball.move();
+  ball.checkWallCollision();
+  ball.checkBarCollision(player);
+
+
+  for (let i = bricks.length - 1; i >= 0; i--) {
+    bricks[i].show();
+  }
+
 }
 
 function finishGame() {
@@ -49,27 +81,13 @@ function finishGame() {
   text("GAME OVER", width / 2, height / 2);
 }
 
-function drawTime() {
-  timeElapsed = millis() / 1000;
-  textSize(20);
-  if (hasGameStarted) {
-    let gameTimeElapsed = round(gameDuration - (timeElapsed - gameStartTime));
-    text("Verbleibende Zeit: " + gameTimeElapsed, width / 2, height - 20);
-  }
-
-  if (timeElapsed - gameStartTime >= gameDuration) {
-    gameStartTime = NaN;
-    hasGameStarted = false;
-    gameState = 2;
-  }
-}
 
 function mousePressed() {
   if (gameState == 0) {
     gameState = 1;
-    gameStartTime = millis() / 1000;
     hasGameStarted = true;
   } else if (gameState == 2) {
     gameState = 0;
+    hasGameStarted = false;
   }
 }

@@ -1,6 +1,6 @@
 class PlayerBar {
   constructor(size) {
-    this.x = width / 2;
+    this.x = width / 2 - size / 2;
     this.y = height - 50;
     this.width = size;
     this.height = 30;
