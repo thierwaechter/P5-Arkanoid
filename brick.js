@@ -13,7 +13,7 @@ class Brick {
     }
 
     checkCollision(ball) {
-        if (ball.x >= this.x && ball.x <= this.x + this.width && ball.y >= this.y && ball.y <= this.y + this.height) {
+        if (ball.x >= this.x && ball.x <= this.x + this.width && ball.y >= this.y + ball.size/2 && ball.y <= this.y + this.height + ball.size/2) {
             return true;
         } else {
             return false;

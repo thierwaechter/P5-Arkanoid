@@ -5,22 +5,25 @@ let gameDuration = 50;
 let fontSize = 40;
 let hasGameStarted = false;
 
-// Für den Playerbalken
+// Für den Player
 let player;
+let lives = 3;
 let barSound;
 
 // Für die Klötze
 let bricks = [];
 let distance;
+let brickSound;
 
 // Für den Ball
-let gameoverSound;
+let lostSound;
 
 
 function preload() {
   soundFormats("wav");
   barSound = loadSound("sound/bar.wav");
-  gameoverSound = loadSound("sound/gameover.wav");
+  lostSound = loadSound("sound/gameover.wav");
+  brickSound = loadSound("sound/brick.wav");
 }
 
 function setup() {
@@ -58,6 +61,9 @@ function startGame() {
 function playGame() {
   background(0, 80, 255);
   textAlign(CENTER);
+
+  currentLives();
+
   player.show();
   player.move();
 
@@ -69,8 +75,12 @@ function playGame() {
 
   for (let i = bricks.length - 1; i >= 0; i--) {
     bricks[i].show();
+    if (bricks[i].checkCollision(ball)) {
+      brickSound.play();
+      ball.reverse();
+      bricks.splice(i, 1);
+    }
   }
-
 }
 
 function finishGame() {
@@ -81,6 +91,13 @@ function finishGame() {
   text("GAME OVER", width / 2, height / 2);
 }
 
+function currentLives() {
+  for (let l = 0; l < lives; l++) {
+    noStroke();
+    fill(100, 100, 100);
+    rect(l*25+5, height-10, 20, 5, 2);
+  }
+}
 
 function mousePressed() {
   if (gameState == 0) {
@@ -91,3 +108,5 @@ function mousePressed() {
     hasGameStarted = false;
   }
 }
+
+
