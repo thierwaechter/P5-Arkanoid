@@ -7,7 +7,7 @@ let hasGameStarted = false;
 
 // Für den Player
 let player;
-let lives = 3;
+let lives = 2;
 let barSound;
 
 // Für die Klötze
@@ -65,10 +65,12 @@ function playGame() {
   currentLives();
 
   player.show();
-  player.move();
+  player.move(ball);
 
   ball.show();
   ball.move();
+  
+
   ball.checkWallCollision();
   ball.checkBarCollision(player);
 
@@ -102,10 +104,11 @@ function currentLives() {
 function mousePressed() {
   if (gameState == 0) {
     gameState = 1;
+  } else if (gameState == 1) {
     hasGameStarted = true;
   } else if (gameState == 2) {
     gameState = 0;
-    hasGameStarted = false;
+    lives = 2;
   }
 }
 

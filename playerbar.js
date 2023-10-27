@@ -3,7 +3,7 @@ class PlayerBar {
     this.x = width / 2 - size / 2;
     this.y = height - 50;
     this.width = size;
-    this.height = 30;
+    this.height = 20;
   }
 
   show() {
