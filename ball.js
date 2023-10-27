@@ -37,6 +37,9 @@ class Ball {
         if (this.y >= height) {
             lostSound.play();
             lives -= 1;
+            hasGameStarted = false;
+            this.x = player.x + player.width / 2;
+            this.y = player.y - 12;
 
         }
         if (lives < 0) {
