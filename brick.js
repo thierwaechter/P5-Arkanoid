@@ -1,14 +1,16 @@
 class Brick {
-    constructor(x, y) {
+    constructor(x, y, r, g, b) {
         this.x = x;
-        this.y = y;       
+        this.y = y + 100;       
         this.width = 60;
         this.height = 30;
-    }
+        this.colorR = r
+        this.colorG = g
+        this.colorB = b    }
 
     show() {
         noStroke();
-        fill(255, 255, 255);
+        fill(this.colorR, this.colorG, this.colorB);
         rect(this.x, this.y, this.width, this.height);
     }
 

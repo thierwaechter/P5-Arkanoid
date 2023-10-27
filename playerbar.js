@@ -8,7 +8,7 @@ class PlayerBar {
 
   show() {
     noStroke();
-    fill(100, 100, 100);
+    fill(150, 150, 150);
     rect(this.x, this.y, this.width, this.height, 20);
   }
 
