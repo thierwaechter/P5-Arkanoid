@@ -14,6 +14,7 @@ let hasGameStarted = false;
 let player;
 let lives = 2;
 let barSound;
+let highScore = 0;
 
 // Für die Klötze
 let bricks = [];
@@ -22,6 +23,10 @@ let brickSound;
 
 // Für den Ball
 let lostSound;
+
+// Für die Spielfeldgrösse
+let gameWidth = 813;
+let gameHeight = 700;
 
 
 function preload() {
@@ -35,7 +40,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(848, 700);
+  createCanvas(1400, 700);
 
   player = new PlayerBar(100);
   ball = new Ball();
@@ -55,13 +60,16 @@ function setup() {
     colorG = colors.g[i];
     colorB = colors.b[i];
       for (let j = 0; j < 13; j++) {
-        bricks.push(new Brick(j * 65 + 5, i * 35 + 5, colorR, colorG, colorB));
+        bricks.push(new Brick(j * 62 + 5, i * 32 + 5, colorR, colorG, colorB));
       }
 
   }
 }
 
 function draw() {
+
+  background(0);
+
   if (gameState == 0) {
     startGame();
   } else if (gameState == 1) {
@@ -88,7 +96,38 @@ function startGame() {
 }
 
 function playGame() {
-  background(0, 80, 255);
+
+  // Hexagon-Hintergrund
+    let hexSize = 55; // Größe der Sechsecke
+    let yOffset = 3/2 * hexSize; // Vertikaler Abstand zwischen den Sechsecken
+    let xOffset = sqrt(3) * hexSize; // Horizontaler Abstand zwischen den Sechsecken
+
+    // Farben
+    let bgColor = color(50, 50, 150); // Hintergrundfarbe
+    let hexColor = color(20, 20, 130); // Sechseckfarbe
+
+    background(bgColor);
+
+    // Zeichne die Sechsecke in einer verschachtelten Schleife
+    for (let x = 0; x < width; x += xOffset) {
+        for (let y = 0; y < height; y += yOffset) {
+            drawHexagon(x, y, hexSize, hexColor);
+            // Zeichne zusätzliche Sechsecke mit einem horizontalen Offset, um die Lücken zu füllen
+            if (x + xOffset/2 < width) {
+                drawHexagon(x + xOffset/2, y + yOffset/2, hexSize, hexColor);
+            }
+        }
+    }
+
+  fill(0);
+  rect(gameWidth, 0, width, gameHeight);
+  fill(100, 0,0);
+  textAlign(CENTER);
+  textSize(fontSizeHeader);
+  textFont(gameTextFont);
+  text("Score: " + highScore, 1100, 150);
+
+
   textAlign(CENTER);
 
   currentLives();
@@ -98,15 +137,14 @@ function playGame() {
 
   ball.show();
   ball.move();
-  
 
   ball.checkWallCollision();
   ball.checkBarCollision(player);
 
-
   for (let i = bricks.length - 1; i >= 0; i--) {
     bricks[i].show();
     if (bricks[i].checkCollision(ball)) {
+      highScore += 10;
       brickSound.play();
       ball.reverse();
       bricks.splice(i, 1);
@@ -116,7 +154,7 @@ function playGame() {
 
 function finishGame() {
   background(0, 0, 0);
-  fill(0);
+  fill("palegreen");
   textAlign(CENTER);
   textSize(fontSizeText);
   textFont(gameTextFont);
@@ -142,4 +180,14 @@ function mousePressed() {
   }
 }
 
-
+// Background zeichnen 
+function drawHexagon(x, y, s, col) {
+  fill(col);
+  beginShape();
+  for (let j = 0; j < TWO_PI; j += TWO_PI / 6) {
+    let hexX = x + s * cos(j);
+    let hexY = y + s * sin(j);
+    vertex(hexX, hexY);
+  }
+  endShape(CLOSE);
+}

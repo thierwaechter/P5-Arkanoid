@@ -13,10 +13,10 @@ class PlayerBar {
   }
 
   move() {
-    if (keyIsDown(LEFT_ARROW)) {
+    if (keyIsDown(LEFT_ARROW) && this.x > 0) {
       this.x -= 5;
     }
-    if (keyIsDown(RIGHT_ARROW)) {
+    if (keyIsDown(RIGHT_ARROW) && this.x < gameWidth - this.width) {
       this.x += 5;
     }
   }

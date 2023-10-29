@@ -11,7 +11,9 @@ class Brick {
     show() {
         noStroke();
         fill(this.colorR, this.colorG, this.colorB);
-        rect(this.x, this.y, this.width, this.height);
+        strokeWeight(2);
+        stroke(10,10,10)
+        rect(this.x, this.y, this.width, this.height, 1);
     }
 
     checkCollision(ball) { 
