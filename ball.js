@@ -52,10 +52,8 @@ class Ball {
     checkBarCollision(player) {
         if (this.x >= player.x && this.x <= player.x + player.width && this.y >= player.y-this.size/2 && this.y <= player.y + player.height-this.size/2) {
             this.speedY *= random(-0.9, -1.1);
-            console.log("OK")
             if ((this.x >= player.x && this.x < player.x + 20) || (this.x <= player.x + player.width && this.x > player.x + player.width - 20)) {
                 this.speedX *= -1;
-                console.log("KNAPP")
             }
             barSound.play();
         }

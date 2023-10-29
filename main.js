@@ -153,12 +153,18 @@ function playGame() {
 }
 
 function finishGame() {
-  background(0, 0, 0);
+  //background(0);
   fill("palegreen");
   textAlign(CENTER);
   textSize(fontSizeText);
   textFont(gameTextFont);
-  text("Versuch es nochmals :-)")
+  text(
+    "Du hast " + highScore + " Punkte erreicht! Versuch es nochmals :-)",
+    width / 2 - 50,
+    height / 2 - 200,
+    100,
+    200
+  );
 }
 
 function currentLives() {
@@ -177,6 +183,7 @@ function mousePressed() {
   } else if (gameState == 2) {
     gameState = 0;
     lives = 2;
+    highScore = 0;
   }
 }
 
