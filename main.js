@@ -25,7 +25,7 @@ let brickSound;
 let lostSound;
 
 // Für die Spielfeldgrösse
-let gameWidth = 813;
+let gameWidth = 687;
 let gameHeight = 700;
 
 // Fürs Levelmanagement
@@ -94,7 +94,7 @@ function playGame() {
   fill(0, 100, 0);
   text("Level: " + actualLevel, 1100, 100);
   fill(100, 0, 0);
-  text("Score: " + highScore, 1100, 150);
+  text("Score: " + highScore, 1100, 200);
 
 
   textAlign(CENTER);

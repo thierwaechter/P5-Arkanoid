@@ -1,6 +1,6 @@
 class PlayerBar {
   constructor(size) {
-    this.x = width / 2 - size / 2;
+    this.x = gameWidth / 2 - size / 2;
     this.y = height - 50;
     this.width = size;
     this.height = 20;
@@ -14,10 +14,10 @@ class PlayerBar {
 
   move() {
     if (keyIsDown(LEFT_ARROW) && this.x > 0) {
-      this.x -= 5;
+      this.x -= 8;
     }
     if (keyIsDown(RIGHT_ARROW) && this.x < gameWidth - this.width) {
-      this.x += 5;
+      this.x += 8;
     }
   }
 }

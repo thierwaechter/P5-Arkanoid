@@ -3,8 +3,8 @@ class Ball {
         this.x = NaN;
         this.y = NaN
         this.size = 20;
-        this.speedX = 3;
-        this.speedY = 3;
+        this.speedX = 4;
+        this.speedY = 4;
     }
 
     show() {
