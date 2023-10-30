@@ -44,6 +44,7 @@ function setup() {
 
   player = new PlayerBar(100);
   ball = new Ball();
+  gamebackground = new GameBackground();
 
   // Level 1
   let colorR;
@@ -97,27 +98,7 @@ function startGame() {
 
 function playGame() {
 
-  // Hexagon-Hintergrund
-    let hexSize = 55; // Größe der Sechsecke
-    let yOffset = 3/2 * hexSize; // Vertikaler Abstand zwischen den Sechsecken
-    let xOffset = sqrt(3) * hexSize; // Horizontaler Abstand zwischen den Sechsecken
-
-    // Farben
-    let bgColor = color(50, 50, 150); // Hintergrundfarbe
-    let hexColor = color(20, 20, 130); // Sechseckfarbe
-
-    background(bgColor);
-
-    // Zeichne die Sechsecke in einer verschachtelten Schleife
-    for (let x = 0; x < width; x += xOffset) {
-        for (let y = 0; y < height; y += yOffset) {
-            drawHexagon(x, y, hexSize, hexColor);
-            // Zeichne zusätzliche Sechsecke mit einem horizontalen Offset, um die Lücken zu füllen
-            if (x + xOffset/2 < width) {
-                drawHexagon(x + xOffset/2, y + yOffset/2, hexSize, hexColor);
-            }
-        }
-    }
+  gamebackground.draw();
 
   fill(0);
   rect(gameWidth, 0, width, gameHeight);
@@ -185,16 +166,4 @@ function mousePressed() {
     lives = 2;
     highScore = 0;
   }
-}
-
-// Background zeichnen 
-function drawHexagon(x, y, s, col) {
-  fill(col);
-  beginShape();
-  for (let j = 0; j < TWO_PI; j += TWO_PI / 6) {
-    let hexX = x + s * cos(j);
-    let hexY = y + s * sin(j);
-    vertex(hexX, hexY);
-  }
-  endShape(CLOSE);
 }
